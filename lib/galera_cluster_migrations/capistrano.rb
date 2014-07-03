@@ -9,10 +9,6 @@ module GaleraClusterMigrations
     def self.load_into(capistrano_config)
       capistrano_config.load do
 
-        before(Capistrano::TASKS) do
-          Config.load(self)
-        end
-
         namespace :galera do
           desc <<-DESC
             Run the migrate rake task. By default, it runs this in most recently \
