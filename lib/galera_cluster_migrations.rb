@@ -7,7 +7,7 @@ module GaleraClusterMigrations
   require 'galera_cluster_migrations/railtie' if defined?(Rails)
 
   included do
-    def set_db_to_rsu
+    def enable_rsu
       say "Setting wsrep_OSU_method to RSU"
       unless [:development, :test].include?(Rails.env)
         execute "SET GLOBAL wsrep_OSU_method=RSU"
@@ -29,7 +29,7 @@ module GaleraClusterMigrations
       end
     end
 
-    def set_db_to_toi
+    def enable_toi
       say "Setting wsrep_OSU_method to TOI"
       unless [:development, :test].include?(Rails.env)
         execute "SET GLOBAL wsrep_OSU_method=TOI"
