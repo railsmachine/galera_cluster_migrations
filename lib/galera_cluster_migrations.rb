@@ -17,6 +17,7 @@ module GaleraClusterMigrations
     def with_rsu
       enable_rsu
       yield
+      disable_wsrep_on
     ensure
       enable_toi
     end
@@ -25,6 +26,13 @@ module GaleraClusterMigrations
       say "Setting wsrep_OSU_method to TOI"
       unless [:development, :test].include?(Rails.env)
         execute "SET GLOBAL wsrep_OSU_method=TOI"
+      end
+    end
+
+    def disable_wsrep_on
+      say "Setting wsrep_on to OFF"
+      unless [:development, :test].include?(Rails.env)
+        execute "SET wsrep_on=OFF"
       end
     end
   end
